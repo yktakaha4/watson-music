@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.TextLinkMapper">
+  <select id="selectByTextId" resultType="TextLink">
+    select * from text_link
+    where text_id = #{textId}
+    order by seq
+  </select>
+  <select id="selectByTitle" resultType="TextLink">
+    select * from text_link
+    where title = #{title}
+    order by text_id, seq
+  </select>
+  <select id="countTextOfContainsTitle" resultType="Integer">
+    select count(distinct text.text_id) from text
+    join text_link
+    on
+    text.text_id = text_link.text_id
+    and
+    text.source = #{source}
+    and
+    text_link.title = #{title}
+  </select>
+  <insert id="insert">
+    insert into text_link values
+    (
+    #{textId},
+    #{seq},
+    #{title},
+    #{linkType}
+    )
+  </insert>
+  <delete id="deleteByTextId">
+    delete from text_link
+    where text_id = #{textId}
+    order by seq
+  </delete>
+  <delete id="deleteAll">
+    delete from text_link
+    order by text_id, seq
+  </delete>
+</mapper>

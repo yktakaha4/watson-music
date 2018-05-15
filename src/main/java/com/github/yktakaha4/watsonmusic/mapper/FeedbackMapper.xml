@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.FeedbackMapper">
+  <select id="selectAll" resultType="Feedback">
+    select * from feedback order by created_at
+  </select>
+  <select id="selectByUserTag" resultType="Feedback">
+    select * from track
+    where user_tag = #{userTag}
+    order by created_at
+  </select>
+  <insert id="insert">
+    insert into feedback values
+    (
+    #{feedbackTag},
+    #{feedbackType},
+    #{trackTag},
+    #{userTag},
+    #{createdAt},
+    #{feedbackedAt}
+    )
+  </insert>
+  <update id="updateFeedbackedAtByTag">
+    update feedback
+    set
+    feedbacked_at = #{feedbackedAt}
+    where
+    feedback_tag = #{feedbackTag}
+  </update>
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.DocumentMapper">
+  <select id="selectAll" resultType="Document">
+    select * from document
+    order by document_id
+  </select>
+  <select id="selectPublished" resultType="Document">
+    select * from document
+    where published_at is not null
+    order by document_id
+  </select>
+  <select id="selectByDocumentId" resultType="Document">
+    select * from document
+    where document_id = #{documentId}
+  </select>
+  <select id="selectByMusicId" resultType="Document">
+    select * from document
+    where music_id = #{musicId}
+  </select>
+  <insert id="insert">
+    insert into document values
+    (
+    #{documentId},
+    #{musicId},
+    #{content},
+    #{contentHash},
+    #{discoveryDocId},
+    #{publishedAt},
+    #{operationStatus},
+    #{createdAt},
+    #{updatedAt}
+    )
+  </insert>
+  <update id="update">
+    update document
+    set
+    music_id = #{musicId},
+    content = #{content},
+    content_hash = #{contentHash},
+    discovery_doc_id = #{discoveryDocId},
+    published_at = #{publishedAt},
+    operation_status = #{operationStatus},
+    created_at = #{createdAt},
+    updated_at = #{updatedAt}
+    where
+    document_id = #{documentId}
+  </update>
+  <update id="updateOperationStatusByMusicId">
+    update document
+    set
+    operation_status = #{operationStatus}
+    where
+    music_id = #{musicId}
+    order by document_id
+  </update>
+  <delete id="delete">
+    delete from document
+    where
+    document_id = #{documentId}
+  </delete>
+</mapper>

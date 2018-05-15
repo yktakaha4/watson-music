@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.ArtworkMapper">
+  <select id="selectAll" resultType="Artwork">
+    select * from artwork
+    order by artwork_id
+  </select>
+  <select id="selectByMusicId" resultType="Artwork">
+    select l.* from artwork as l
+    inner join music_artwork as r
+    on l.artwork_id = r.artwork_id
+    and r.music_id = #{musicId}
+  </select>
+  <select id="selectByImageHash" resultType="Artwork">
+    select * from artwork
+    where image_hash = #{imageHash}
+  </select>
+  <insert id="insert">
+    insert into artwork values
+    (
+    #{artworkId},
+    #{mimetype},
+    #{image},
+    #{imageHash},
+    #{textTag},
+    #{createdAt},
+    #{updatedAt}
+    )
+  </insert>
+</mapper>

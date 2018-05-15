@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.TextMapper">
+  <select id="selectAll" resultType="Text">
+    select * from text
+    order by text_id
+  </select>
+  <select id="selectByTextId" resultType="Text">
+    select * from text
+    where text_id = #{text_id}
+  </select>
+  <select id="selectBySource" resultType="Text">
+    select * from text
+    where source = #{source}
+    order by text_id
+  </select>
+  <select id="selectBySourceAndTitle" resultType="Text">
+    select * from text
+    where source = #{source}
+    and title = #{title}
+  </select>
+  <select id="count" resultType="Integer">
+    select count(*) from text
+    where source = #{source}
+  </select>
+  <insert id="insert">
+    insert into text values
+    (
+    #{textId},
+    #{source},
+    #{title},
+    #{content},
+    #{raw},
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP
+    )
+  </insert>
+  <delete id="deleteAll">
+    delete from text
+    order by text_id
+  </delete>
+</mapper>

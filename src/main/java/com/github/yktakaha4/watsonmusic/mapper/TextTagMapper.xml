@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.TextTagMapper">
+  <select id="select" resultType="TextTag">
+    select * from text_tag
+    where text_id = #{textId} and tag = #{tag}
+  </select>
+  <select id="selectByTextId" resultType="TextTag">
+    select * from text_tag
+    where text_id = #{textId}
+    order by tag
+  </select>
+  <select id="selectByTag" resultType="TextTag">
+    select * from text_tag
+    where tag = #{tag}
+    order by text_id, tag
+  </select>
+  <insert id="insert">
+    insert into text_tag values
+    (
+    #{textId},
+    #{tag},
+    #{relevance},
+    #{createdAt}
+    )
+  </insert>
+  <delete id="deleteByTextId">
+    delete from text_tag
+    where text_id = #{textId}
+    order by tag
+  </delete>
+  <delete id="deleteByTag">
+    delete from text_tag
+    where tag = #{tag}
+    order by text_id
+  </delete>
+  <delete id="deleteAll">
+    delete from text_tag
+    order by text_id, tag
+  </delete>
+</mapper>

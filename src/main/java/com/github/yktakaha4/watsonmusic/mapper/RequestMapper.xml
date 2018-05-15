@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.RequestMapper">
+  <select id="selectAll" resultType="Request">
+    select * from request order by created_at
+  </select>
+  <select id="selectByPlayedAtIsNull" resultType="Request">
+    select * from request
+    where played_at is null
+    order by created_at
+  </select>
+  <select id="selectByTag" resultType="Request">
+    select * from request
+    where request_tag = #{requestTag}
+    order by created_at
+  </select>
+  <insert id="insert">
+    insert into request values
+    (
+    #{requestTag},
+    #{text},
+    #{userTag},
+    #{createdAt},
+    #{playingAt},
+    #{playedAt}
+    )
+  </insert>
+  <update id="updatePlayingAtByTag">
+    update request
+    set
+    playing_at = #{playingAt}
+    where
+    request_tag = #{requestTag}
+  </update>
+  <update id="updatePlayedAtByTag">
+    update request
+    set
+    played_at = #{playedAt}
+    where
+    request_tag = #{requestTag}
+  </update>
+  <delete id="deleteByTag">
+    delete from request
+    where
+    request_tag = #{requestTag}
+  </delete>
+</mapper>

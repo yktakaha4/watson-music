@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.TrackMapper">
+  <select id="selectAll" resultType="Track">
+    select * from track order by created_at
+  </select>
+  <select id="selectByPlayedAtIsNull" resultType="Track">
+    select * from track
+    where played_at is null
+    order by created_at
+  </select>
+  <select id="selectByPlayedAtIsNotNull" resultType="Track">
+    select * from track
+    where played_at is not null
+    order by created_at
+  </select>
+    <select id="selectByPlayedAtIsNotNullAndPlayedAt" resultType="Track">
+    select * from track
+    where played_at is not null
+    and played_at >= #{playedAt}
+    order by created_at
+  </select>
+  <select id="selectByRequestTag" resultType="Track">
+    select * from track
+    where request_tag = #{requestTag}
+    order by created_at
+  </select>
+  <select id="selectByTrackTag" resultType="Track">
+    select * from track
+    where track_tag = #{trackTag}
+    order by created_at
+  </select>
+  <insert id="insert">
+    insert into track values
+    (
+    #{trackTag},
+    #{requestTag},
+    #{discoveryDocId},
+    #{musicId},
+    #{createdAt},
+    #{playedAt}
+    )
+  </insert>
+  <update id="updatePlayedAtByTag">
+    update track
+    set
+    played_at = #{playedAt}
+    where
+    track_tag = #{trackTag}
+  </update>
+  <update id="deleteByTrackTag">
+    delete from track
+    where
+    track_tag = #{trackTag}
+  </update>
+</mapper>

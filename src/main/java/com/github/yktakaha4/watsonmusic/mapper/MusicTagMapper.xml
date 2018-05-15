@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.MusicTagMapper">
+  <select id="selectAll" resultType="MusicTag">
+    select * from music_tag
+    order by music_id, seq
+  </select>
+  <select id="selectByMusicId" resultType="MusicTag">
+    select * from music_tag
+    where music_id = #{musicId}
+    order by seq
+  </select>
+  <select id="selectByNamesIn" resultType="MusicTag">
+    select * from music_tag
+    where name in
+    <foreach item="list" index="index" collection="list" open="(" separator="," close=")">
+        #{list}
+    </foreach>
+    order by music_id, seq
+  </select>
+  <select id="selectByNameAndValue" resultType="MusicTag">
+    select * from music_tag
+    where name = #{name} and value = #{value}
+    order by music_id, seq
+  </select>
+  <insert id="insert">
+    insert into music_tag values
+    (
+    #{musicId},
+    #{seq},
+    #{name},
+    #{value},
+    #{textTag}
+    )
+  </insert>
+  <delete id="deleteByMusicId">
+    delete from music_tag
+    where
+    music_id = #{musicId}
+    order by seq
+  </delete>
+</mapper>

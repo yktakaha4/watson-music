@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+  <logger name="org.jaudiotagger" level="WARN" />
+  <logger name="okhttp3.OkHttpClient" level="WARN" />
+  <logger name="javazoom.jlgui.basicplayer.BasicPlayer" level="WARN" />
+  <logger name="o.a.coyote.http11.Http11NioProcessor" level="WARN" />
+  <logger name="com.github.yktakaha4.watsonmusic" level="INFO" />
+</configuration>

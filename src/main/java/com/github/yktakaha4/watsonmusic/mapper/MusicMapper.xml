@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.yktakaha4.watsonmusic.mapper.MusicMapper">
+  <select id="selectAll" resultType="Music">
+    select * from music order by music_id
+  </select>
+  <select id="selectLivingAll" resultType="Music">
+    select * from music
+    where missing_at is null
+    order by music_id
+  </select>
+  <select id="selectMissingAll" resultType="Music">
+    select * from music
+    where missing_at is not null
+    order by music_id
+  </select>
+  <select id="selectByMusicId" resultType="Music">
+    select * from music where music_id = #{music_id}
+  </select>
+  <select id="selectByPath" resultType="Music">
+    select * from music where path = #{path}
+  </select>
+  <select id="selectByFileHash" resultType="Music">
+    select * from music where file_hash = #{fileHash}
+    order by music_id
+  </select>
+  <select id="selectLivingCount" resultType="Integer">
+    select count(*) from music
+    where missing_at is null
+  </select>
+  <insert id="insert">
+    insert into music values
+    (
+    #{musicId},
+    #{path},
+    #{encoding},
+    #{trackLength},
+    #{fileHash},
+    #{textTag},
+    #{createdAt},
+    #{updatedAt},
+    #{missingAt}
+    )
+  </insert>
+  <update id="update">
+    update music
+    set
+    path = #{path},
+    encoding = #{encoding},
+    track_length = #{trackLength},
+    file_hash = #{fileHash},
+    text_tag = #{textTag},
+    updated_at = #{updatedAt},
+    missing_at = #{missingAt}
+    where
+    music_id = #{musicId}
+  </update>
+  <update id="updateMissingAtAll">
+    update music set
+    missing_at = #{missingAt}
+    order by music_id
+  </update>
+  <update id="updateMissingAt">
+    update music set
+    missing_at = #{missingAt}
+    where
+    music_id = #{musicId}
+    order by music_id
+  </update>
+</mapper>
